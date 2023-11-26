@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: null,
   },
+  twitterId: {
+    type: String,
+    default: null,
+  },
   password: {
     type: String,
     default: null,

@@ -29,6 +29,16 @@ authRoutes.get(
   })
 );
 
+//Twitter Login
+authRoutes.get("/twitter", passport.authenticate("twitter"));
+authRoutes.get(
+  "/twitter/callback",
+  passport.authenticate("twitter", {
+    failureRedirect: "http://localhost:3000/auth/failed",
+    successRedirect: "http://localhost:3000/auth/success",
+  })
+);
+
 authRoutes.post("/register", async (req, res) => {
   const { username, password, email } = req.body;
 

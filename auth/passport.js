@@ -1,24 +1,36 @@
+require("dotenv").config();
+
 const passport = require("passport");
+
 const LocalStrategy = require("passport-local").Strategy;
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const FacebookStrategy = require("passport-facebook").Strategy;
+const TwitterStrategy = require("passport-twitter").Strategy;
+
 const User = require("../model/User");
 const { verifyPassword } = require("./passwordUtils");
 
 const googleDevCreaditenial = {
-  clientID: "535907436991-ebg5vaicl7p1hs7leoag9tib3autd0i6.apps.googleusercontent.com",
-  clientSecret: "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",
+  clientID: process.env.GOOGLE_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_SECRET,
   callbackURL: "http://localhost:5000/auth/google/callback",
   scope: ["profile", "email"],
 };
+
 const facebookDevCreaditenial = {
-  clientID: "1046547593009266",
-  clientSecret: "41910ae114c074cf9cd67c4869ec17c4",
+  clientID: process.env.FACEBOOK_CLIENT_ID,
+  clientSecret: process.env.FACEBOOK_SECRET,
   callbackURL: "http://localhost:5000/auth/facebook/callback",
   profileFields: ["id", "email", "displayName", "picture.type(large)"],
 };
+
+const twitterDevCreaditenial = {
+  consumerKey: process.env.TWITTER_CLIENT_ID,
+  consumerSecret: process.env.TWITTER_SECRET,
+  callbackURL: "http://localhost:5000/auth/twitter/callback",
+  includeEmail: true,
+};
 const GoogleStrategycallback = async (accessToken, refreshToken, profile, cb) => {
-  console.log(profile);
   const newUser = {
     username: profile.displayName,
     email: profile.emails[0].value,
@@ -31,9 +43,10 @@ const GoogleStrategycallback = async (accessToken, refreshToken, profile, cb) =>
     const newU = await User(newUser).save();
     return cb(null, newU);
   } catch (err) {
-    cb(err);
+    return cb(err);
   }
 };
+
 const FacebookStrategycallback = async (accessToken, refreshToken, profile, cb) => {
   const newUser = {
     username: profile.displayName,
@@ -47,10 +60,27 @@ const FacebookStrategycallback = async (accessToken, refreshToken, profile, cb) 
     const newU = await User(newUser).save();
     return cb(null, newU);
   } catch (err) {
-    cb(err);
+    return cb(err);
   }
-  return cb(null, null);
 };
+
+const TwitterStrategycallback = async (token, tokenSecret, profile, cb) => {
+  const newUser = {
+    username: profile.displayName,
+    email: profile.emails[0].value,
+    twitterId: profile.id,
+    profilePicUrl: profile.photos[0].value,
+  };
+  try {
+    const user = await User.findOne({ twitterId: profile.id });
+    if (user) return cb(null, user);
+    const newU = await User(newUser).save();
+    return cb(null, newU);
+  } catch (err) {
+    return cb(err);
+  }
+};
+
 const LocalStrategycallback = (username, password, done) => {
   User.findOne({ username: username })
     .then((user) => {
@@ -70,6 +100,7 @@ const LocalStrategycallback = (username, password, done) => {
 
 passport.use(new FacebookStrategy(facebookDevCreaditenial, FacebookStrategycallback));
 passport.use(new GoogleStrategy(googleDevCreaditenial, GoogleStrategycallback));
+passport.use(new TwitterStrategy(twitterDevCreaditenial, TwitterStrategycallback));
 passport.use(new LocalStrategy(LocalStrategycallback));
 
 passport.serializeUser((user, done) => {
