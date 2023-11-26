@@ -1,4 +1,4 @@
-## Project Overview:
+# Project Overview:
 
 The Passport.js Authentication Backend is a robust solution for implementing secure user authentication in web applications. This project incorporates various authentication strategies, including local authentication, Google, Facebook, and Twitter strategies, to offer flexibility for users and developers.
 
