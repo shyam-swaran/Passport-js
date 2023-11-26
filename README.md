@@ -15,7 +15,7 @@ Twitter Authentication: Supports authentication via Twitter accounts.
 
 # How to Use:
 
-- Clone the Repository: `git clone https://github.com/your-username/authentication-backend.git`
+- Clone the Repository: `git clone https://github.com/shyam-swaran/Passport-js.git`
 - Create a .env file in the project root directory and add the following configurations:
 
 ```
