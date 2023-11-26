@@ -15,8 +15,6 @@ Twitter Authentication: Supports authentication via Twitter accounts.
 
 - Clone the Repository: `git clone https://github.com/your-username/authentication-backend.git`
 - Create a .env File: Create a .env file in the project root directory and add the following configurations:
-
-- .env
 ```
 MONGODB_URL=your_mongodb_url
 GOOGLE_CLIENT_ID=your_google_client_id
