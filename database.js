@@ -1,3 +1,4 @@
+require("dotenv").config();
 const mongoose = require("mongoose");
-const authDatabase = mongoose.createConnection("mongodb://127.0.0.1:27017/Auth");
+const authDatabase = mongoose.createConnection(process.env.MONGODB_URL);
 module.exports = { authDatabase };

@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 5000;
 app.use([express.json(), express.urlencoded({ extended: true }), cors()]);
 
 const sessionStore = new MongoStore({
-  mongoUrl: process.env.DB_STRING,
+  mongoUrl: process.env.MONGODB_URL,
   collectionName: "session",
 });
 

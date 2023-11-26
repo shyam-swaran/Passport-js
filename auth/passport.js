@@ -12,21 +12,21 @@ const { verifyPassword } = require("./passwordUtils");
 
 const googleDevCreaditenial = {
   clientID: process.env.GOOGLE_CLIENT_ID,
-  clientSecret: process.env.GOOGLE_SECRET,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
   callbackURL: "http://localhost:5000/auth/google/callback",
   scope: ["profile", "email"],
 };
 
 const facebookDevCreaditenial = {
   clientID: process.env.FACEBOOK_CLIENT_ID,
-  clientSecret: process.env.FACEBOOK_SECRET,
+  clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
   callbackURL: "http://localhost:5000/auth/facebook/callback",
   profileFields: ["id", "email", "displayName", "picture.type(large)"],
 };
 
 const twitterDevCreaditenial = {
-  consumerKey: process.env.TWITTER_CLIENT_ID,
-  consumerSecret: process.env.TWITTER_SECRET,
+  consumerKey: process.env.TWITTER_CONSUMER_KEY,
+  consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
   callbackURL: "http://localhost:5000/auth/twitter/callback",
   includeEmail: true,
 };
