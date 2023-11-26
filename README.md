@@ -1,7 +1,9 @@
 ## Project Overview:
+
 The Passport.js Authentication Backend is a robust solution for implementing secure user authentication in web applications. This project incorporates various authentication strategies, including local authentication, Google, Facebook, and Twitter strategies, to offer flexibility for users and developers.
 
 # Objectives:
+
 The primary objectives of this project are to provide a reliable and extensible authentication backend that supports different authentication providers, ensuring a seamless and secure login experience for users.
 
 # Authentication Strategies:
@@ -15,6 +17,7 @@ Twitter Authentication: Supports authentication via Twitter accounts.
 
 - Clone the Repository: `git clone https://github.com/your-username/authentication-backend.git`
 - Create a .env file in the project root directory and add the following configurations:
+
 ```
 MONGODB_URL=your_mongodb_url
 GOOGLE_CLIENT_ID=your_google_client_id
@@ -25,6 +28,7 @@ TWITTER_CONSUMER_KEY=your_twitter_consumer_key
 TWITTER_CONSUMER_SECRET=your_twitter_consumer_secret
 SESSION_SECRET=your_session_secret
 ```
+
 - Install Dependencies: `npm install`
 - Run the Application: `npm start`
 
