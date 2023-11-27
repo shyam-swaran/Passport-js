@@ -16,6 +16,7 @@ Twitter Authentication: Supports authentication via Twitter accounts.
 # How to Use:
 
 - Clone the Repository: `git clone https://github.com/shyam-swaran/Passport-js.git`
+- Install Dependencies: `npm install`
 - Create a .env file in the project root directory and add the following configurations:
 
 ```
@@ -29,7 +30,6 @@ TWITTER_CONSUMER_SECRET=your_twitter_consumer_secret
 SESSION_SECRET=your_session_secret
 ```
 
-- Install Dependencies: `npm install`
 - Run the Application: `npm start`
 
 Requirements:
