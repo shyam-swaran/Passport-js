@@ -6,13 +6,15 @@ const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const passport = require("passport");
 
-const { authRoutes } = require("./auth/auth");
+const { authRoutes, authenticator } = require("./auth/auth");
+const { apiRoutes } = require("./api/api");
 const PORT = process.env.PORT || 5000;
 
-app.use([express.json(), express.urlencoded({ extended: true }), cors()]);
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use([express.json(), express.urlencoded({ extended: true })]);
 
 const sessionStore = new MongoStore({
-  mongoUrl: process.env.MONGODB_URL,
+  mongoUrl: process.env.MONGODB_URL_AUTH,
   collectionName: "session",
 });
 
@@ -31,6 +33,7 @@ app.use(
 app.use(passport.session());
 app.use(passport.initialize());
 app.use("/auth", authRoutes);
+app.use("/api", [authenticator, apiRoutes]);
 
 app.listen(PORT, () => {
   console.log(`server is running on port :${PORT} `);

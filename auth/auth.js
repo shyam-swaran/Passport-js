@@ -52,22 +52,28 @@ authRoutes.post("/register", async (req, res) => {
     const taken = await User.findOne({ username: username });
     if (taken) return res.status(404).json({ error: "Username Already Taken" });
     const savedUser = await user.save();
-    res.send(savedUser);
+    return res.send(savedUser);
   } catch (err) {
-    res.status(404).send(err);
+    return res.status(404).send(err);
   }
 });
 
-authRoutes.get("/logout", (req, res) => {
+authRoutes.get("/logout", (req, res, next) => {
   req.logOut((err) => {
-    if (err) return res.send(err);
+    if (err) res.send(err);
+    else res.json({ success: "logged out" });
   });
-  return res.send("logged out");
 });
+
 const authenticator = (req, res, next) => {
   if (!req.isAuthenticated()) {
-    return res.status(404).send("err");
+    return res.status(401).json({ error: "Login Required" });
   }
   next();
 };
+
+authRoutes.get("/user", authenticator, (req, res) => {
+  res.json(req.user);
+});
+
 module.exports = { authenticator, authRoutes };

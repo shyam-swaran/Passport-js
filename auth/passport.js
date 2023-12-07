@@ -35,7 +35,7 @@ const GoogleStrategycallback = async (accessToken, refreshToken, profile, cb) =>
     username: profile.displayName,
     email: profile.emails[0].value,
     googleId: profile.id,
-    profilePicUrl: profile.picture,
+    profilePicUrl: profile.photos[0].value,
   };
   try {
     const user = await User.findOne({ googleId: profile.id });
